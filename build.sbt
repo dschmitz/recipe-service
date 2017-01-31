@@ -47,6 +47,7 @@ lazy val library =
       val akkaHttpJson   = "1.11.0"
       val akkaLog4j      = "1.2.2"
       val circe          = "0.6.1"
+      val swagger        = "0.9.1"
       val log4j          = "2.8"
       val scalaCheck     = "1.13.4"
       val scalaTest      = "3.0.1"
@@ -54,22 +55,24 @@ lazy val library =
       val gatling        = "2.2.3"
     }
 
-    val akkaActor      = "com.typesafe.akka"         %% "akka-actor"        % Version.akka
-    val akkaCluster    = "com.typesafe.akka"         %% "akka-cluster"      % Version.akka
+    val akkaActor      = "com.typesafe.akka"            %% "akka-actor"        % Version.akka
+    val akkaCluster    = "com.typesafe.akka"            %% "akka-cluster"      % Version.akka
 
-    val akkaHttp       = "com.typesafe.akka"         %% "akka-http"         % Version.akkaHttp
-    val akkaHttpCore   = "com.typesafe.akka"         %% "akka-http-core"    % Version.akkaHttp
-    val akkaHttpCors   = "ch.megard"                 %% "akka-http-cors"    % Version.akkaHttpCors
+    val akkaHttp       = "com.typesafe.akka"            %% "akka-http"         % Version.akkaHttp
+    val akkaHttpCore   = "com.typesafe.akka"            %% "akka-http-core"    % Version.akkaHttp
+    val akkaHttpCors   = "ch.megard"                    %% "akka-http-cors"    % Version.akkaHttpCors
 
-    val akkaHttpCirce  = "de.heikoseeberger"         %% "akka-http-circe"   % Version.akkaHttpJson
-    val circeCore      = "io.circe"                  %% "circe-core"        % Version.circe
-    val circeGeneric   = "io.circe"                  %% "circe-generic"     % Version.circe
-    val circeParser    = "io.circe"                  %% "circe-parser"      % Version.circe
+    val akkaHttpCirce  = "de.heikoseeberger"            %% "akka-http-circe"   % Version.akkaHttpJson
+    val circeCore      = "io.circe"                     %% "circe-core"        % Version.circe
+    val circeGeneric   = "io.circe"                     %% "circe-generic"     % Version.circe
+    val circeParser    = "io.circe"                     %% "circe-parser"      % Version.circe
 
-    val typesafeConfig = "com.typesafe"              %  "config"            % Version.typesafeConfig
+    val swagger        = "com.github.swagger-akka-http" %% "swagger-akka-http" % Version.swagger
 
-    val akkaLog4j       = "de.heikoseeberger"        %% "akka-log4j"        % Version.akkaLog4j
-    val log4jCore       = "org.apache.logging.log4j" %  "log4j-core"        % Version.log4j
+    val typesafeConfig = "com.typesafe"                 %  "config"            % Version.typesafeConfig
+
+    val akkaLog4j      = "de.heikoseeberger"            %% "akka-log4j"        % Version.akkaLog4j
+    val log4jCore      = "org.apache.logging.log4j"     %  "log4j-core"        % Version.log4j
 
     val scalaCheck           = "org.scalacheck"      %% "scalacheck"              % Version.scalaCheck % Test
     val scalaTest            = "org.scalatest"       %% "scalatest"               % Version.scalaTest  % Test
@@ -88,7 +91,7 @@ lazy val library =
 lazy val settings =
   commonSettings ++
   scalafmtSettings ++
-  //wartRemoverSettings ++
+  wartRemoverSettings ++
   gitSettings ++
   headerSettings ++
   buildInfoSettings ++
@@ -158,7 +161,7 @@ lazy val dockerSettings = Seq(
 
 lazy val wartRemoverSettings = Seq(
   wartremoverErrors in (Compile, compile) ++= Warts.unsafe,
-  wartremoverExcluded += baseDirectory.value / "src_managed"
+  wartremoverExcluded += sourceManaged.value / "main/sbt-buildinfo/BuildInfo.scala"
 )
 
 lazy val publishSettings = Seq(
