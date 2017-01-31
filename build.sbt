@@ -15,16 +15,12 @@ lazy val `recipe-service` =
         library.akkaHttpCore,
         library.akkaHttpCors,
         library.akkaHttpCirce,
-
         library.circeCore,
         library.circeGeneric,
         library.circeParser,
-
         library.typesafeConfig,
-
         library.akkaLog4j,
         library.log4jCore,
-
         library.scalaCheck,
         library.scalaTest,
         library.akkaMultiNodeTestkit,
@@ -55,33 +51,25 @@ lazy val library =
       val gatling        = "2.2.3"
     }
 
-    val akkaActor      = "com.typesafe.akka"            %% "akka-actor"        % Version.akka
-    val akkaCluster    = "com.typesafe.akka"            %% "akka-cluster"      % Version.akka
-
-    val akkaHttp       = "com.typesafe.akka"            %% "akka-http"         % Version.akkaHttp
-    val akkaHttpCore   = "com.typesafe.akka"            %% "akka-http-core"    % Version.akkaHttp
-    val akkaHttpCors   = "ch.megard"                    %% "akka-http-cors"    % Version.akkaHttpCors
-
-    val akkaHttpCirce  = "de.heikoseeberger"            %% "akka-http-circe"   % Version.akkaHttpJson
-    val circeCore      = "io.circe"                     %% "circe-core"        % Version.circe
-    val circeGeneric   = "io.circe"                     %% "circe-generic"     % Version.circe
-    val circeParser    = "io.circe"                     %% "circe-parser"      % Version.circe
-
-    val swagger        = "com.github.swagger-akka-http" %% "swagger-akka-http" % Version.swagger
-
-    val typesafeConfig = "com.typesafe"                 %  "config"            % Version.typesafeConfig
-
-    val akkaLog4j      = "de.heikoseeberger"            %% "akka-log4j"        % Version.akkaLog4j
-    val log4jCore      = "org.apache.logging.log4j"     %  "log4j-core"        % Version.log4j
-
-    val scalaCheck           = "org.scalacheck"      %% "scalacheck"              % Version.scalaCheck % Test
-    val scalaTest            = "org.scalatest"       %% "scalatest"               % Version.scalaTest  % Test
-    val akkaMultiNodeTestkit = "com.typesafe.akka"   %% "akka-multi-node-testkit" % Version.akka       % Test
-    val akkaHttpTestkit      = "com.typesafe.akka"   %% "akka-http-testkit"       % Version.akkaHttp   % Test
-
-    val gatling              = "io.gatling"            % "gatling-test-framework"    % Version.gatling    % "test,it"
-    val gatlingHighcharts    = "io.gatling.highcharts" % "gatling-charts-highcharts" %  Version.gatling   % "test,it"
-
+    val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
+    val akkaCluster          = "com.typesafe.akka"            %% "akka-cluster"             % Version.akka
+    val akkaHttp             = "com.typesafe.akka"            %% "akka-http"                % Version.akkaHttp
+    val akkaHttpCore         = "com.typesafe.akka"            %% "akka-http-core"           % Version.akkaHttp
+    val akkaHttpCors         = "ch.megard"                    %% "akka-http-cors"           % Version.akkaHttpCors
+    val akkaHttpCirce        = "de.heikoseeberger"            %% "akka-http-circe"          % Version.akkaHttpJson
+    val circeCore            = "io.circe"                     %% "circe-core"               % Version.circe
+    val circeGeneric         = "io.circe"                     %% "circe-generic"            % Version.circe
+    val circeParser          = "io.circe"                     %% "circe-parser"             % Version.circe
+    val swagger              = "com.github.swagger-akka-http" %% "swagger-akka-http"        % Version.swagger
+    val typesafeConfig       = "com.typesafe"                 % "config"                    % Version.typesafeConfig
+    val akkaLog4j            = "de.heikoseeberger"            %% "akka-log4j"               % Version.akkaLog4j
+    val log4jCore            = "org.apache.logging.log4j"     % "log4j-core"                % Version.log4j
+    val scalaCheck           = "org.scalacheck"               %% "scalacheck"               % Version.scalaCheck % Test
+    val scalaTest            = "org.scalatest"                %% "scalatest"                % Version.scalaTest % Test
+    val akkaMultiNodeTestkit = "com.typesafe.akka"            %% "akka-multi-node-testkit"  % Version.akka % Test
+    val akkaHttpTestkit      = "com.typesafe.akka"            %% "akka-http-testkit"        % Version.akkaHttp % Test
+    val gatling              = "io.gatling"                   % "gatling-test-framework"    % Version.gatling % "test,it"
+    val gatlingHighcharts    = "io.gatling.highcharts"        % "gatling-charts-highcharts" % Version.gatling % "test,it"
   }
 
 // *****************************************************************************
@@ -110,15 +98,18 @@ lazy val commonSettings =
       "-deprecation",
       "-language:_",
       "-target:jvm-1.8",
-      "-encoding", "UTF-8"
+      "-encoding",
+      "UTF-8"
     ),
     javacOptions ++= Seq(
-      "-source", "1.8",
-      "-target", "1.8"
+      "-source",
+      "1.8",
+      "-target",
+      "1.8"
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
     unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
-    credentials += Credentials (Path.userHome / ".ivy2" / ".credentials")
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
   )
 
 lazy val buildInfoSettings = Seq(
@@ -131,9 +122,10 @@ lazy val buildInfoSettings = Seq(
 lazy val scalafmtSettings =
   reformatOnCompileSettings ++
   Seq(
-    formatSbtFiles := false,
+    formatSbtFiles := true,
     scalafmtConfig := Some(baseDirectory.in(ThisBuild).value / ".scalafmt.conf"),
-    ivyScala := ivyScala.value.map(_.copy(overrideScalaVersion = sbtPlugin.value)) // TODO Remove once this workaround no longer needed (https://github.com/sbt/sbt/issues/2786)!
+    ivyScala := ivyScala.value
+      .map(_.copy(overrideScalaVersion = sbtPlugin.value)) // TODO Remove once this workaround no longer needed (https://github.com/sbt/sbt/issues/2786)!
   )
 
 lazy val gitSettings =
@@ -152,11 +144,11 @@ lazy val headerSettings = Seq(
 )
 
 lazy val dockerSettings = Seq(
-    //daemonUser.in(Docker) := "root",
-    maintainer.in(Docker) := "David Schmitz",
-    dockerBaseImage       := "java:8",
-    dockerExposedPorts    := Vector(8000),
-    dockerRepository      := Some("uport")
+  //daemonUser.in(Docker) := "root",
+  maintainer.in(Docker) := "David Schmitz",
+  dockerBaseImage := "java:8",
+  dockerExposedPorts := Vector(8000),
+  dockerRepository := Some("uport")
 )
 
 lazy val wartRemoverSettings = Seq(
@@ -165,6 +157,7 @@ lazy val wartRemoverSettings = Seq(
 )
 
 lazy val publishSettings = Seq(
+  publishMavenStyle := true,
   publishTo := {
     val nexus = "http://127.0.0.1:48081/"
     if (isSnapshot.value)
