@@ -36,6 +36,7 @@ lazy val `recipe-service` =
 
 lazy val library =
   new {
+
     object Version {
       val akka           = "2.4.16"
       val akkaHttp       = "10.0.3"
@@ -84,7 +85,8 @@ lazy val settings =
   headerSettings ++
   buildInfoSettings ++
   dockerSettings ++
-  publishSettings
+  publishSettings ++
+  releaseSettings
 
 lazy val commonSettings =
   Seq(
@@ -133,9 +135,7 @@ lazy val gitSettings =
     git.useGitDescribe := true
   )
 
-import de.heikoseeberger.sbtheader.HeaderPattern
 import de.heikoseeberger.sbtheader.license.Apache2_0
-
 lazy val headerSettings = Seq(
   headers := Map(
     "scala" -> Apache2_0("2017", "David Schmitz"),
@@ -153,11 +153,12 @@ lazy val dockerSettings = Seq(
 
 lazy val wartRemoverSettings = Seq(
   wartremoverErrors in (Compile, compile) ++= Warts.unsafe,
-  wartremoverExcluded += sourceManaged.value / "main/sbt-buildinfo/BuildInfo.scala"
+  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
 
 lazy val publishSettings = Seq(
   publishMavenStyle := true,
+  publishArtifact in Test := false,
   publishTo := {
     val nexus = "http://127.0.0.1:48081/"
     if (isSnapshot.value)
@@ -165,4 +166,22 @@ lazy val publishSettings = Seq(
     else
       Some("releases" at nexus + "repository/maven-releases")
   }
+)
+
+import sbtrelease.ReleasePlugin.autoImport._
+import ReleaseTransformations._
+lazy val releaseSettings = Seq(
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runTest,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    //publishDocker,
+    publishArtifacts,
+    setNextVersion,
+    commitNextVersion,
+    pushChanges
+  )
 )
