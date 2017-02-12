@@ -14,8 +14,10 @@ class RecipeServiceSimulation extends Simulation {
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0")
 
   val scn = scenario("Scenario Name") // A scenario is a chain of requests and pauses
-    .exec(http("request_1")
-      .get("/"))
+    .exec(
+      http("request_1")
+        .get("/")
+    )
     .pause(7) // Note that Gatling has recorder real time pauses
 
   setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))

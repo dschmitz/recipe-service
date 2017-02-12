@@ -38,11 +38,11 @@ lazy val library =
   new {
 
     object Version {
-      val akka           = "2.4.16"
+      val akka           = "2.4.17"
       val akkaHttp       = "10.0.3"
-      val akkaHttpCors   = "0.1.10"
-      val akkaHttpJson   = "1.11.0"
-      val akkaLog4j      = "1.2.2"
+      val akkaHttpCors   = "0.1.11"
+      val akkaHttpJson   = "1.12.0"
+      val akkaLog4j      = "1.3.0"
       val circe          = "0.6.1"
       val swagger        = "0.9.1"
       val log4j          = "2.8"
@@ -79,7 +79,6 @@ lazy val library =
 
 lazy val settings =
   commonSettings ++
-  scalafmtSettings ++
   wartRemoverSettings ++
   gitSettings ++
   headerSettings ++
@@ -120,15 +119,6 @@ lazy val buildInfoSettings = Seq(
   buildInfoOptions += BuildInfoOption.ToJson,
   buildInfoOptions += BuildInfoOption.BuildTime
 )
-
-lazy val scalafmtSettings =
-  reformatOnCompileSettings ++
-  Seq(
-    formatSbtFiles := true,
-    scalafmtConfig := Some(baseDirectory.in(ThisBuild).value / ".scalafmt.conf"),
-    ivyScala := ivyScala.value
-      .map(_.copy(overrideScalaVersion = sbtPlugin.value)) // TODO Remove once this workaround no longer needed (https://github.com/sbt/sbt/issues/2786)!
-  )
 
 lazy val gitSettings =
   Seq(
