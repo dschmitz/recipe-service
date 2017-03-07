@@ -18,7 +18,7 @@ package io.uport.recipe.model
 
 sealed trait CookingRecipe
 
-case class Recipe(
+final case class Recipe(
     id: Int,
     stars: Double,
     name: String,
@@ -30,6 +30,6 @@ case class Recipe(
     steps: List[CookingStep]
 ) extends CookingRecipe
 
-case class CookingStep(description: String) extends CookingRecipe
+final case class CookingStep(description: String) extends CookingRecipe
 
-case class Ingredient(name: String, amount: Double, unit: String) extends CookingRecipe
+final case class Ingredient(name: String, amount: Double, unit: String) extends CookingRecipe

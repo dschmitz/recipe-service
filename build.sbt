@@ -39,13 +39,13 @@ lazy val library =
 
     object Version {
       val akka           = "2.4.17"
-      val akkaHttp       = "10.0.3"
+      val akkaHttp       = "10.0.4"
       val akkaHttpCors   = "0.1.11"
       val akkaHttpJson   = "1.12.0"
       val akkaLog4j      = "1.3.0"
-      val circe          = "0.6.1"
+      val circe          = "0.7.0"
       val swagger        = "0.9.1"
-      val log4j          = "2.8"
+      val log4j          = "2.8.1"
       val scalaCheck     = "1.13.4"
       val scalaTest      = "3.0.1"
       val typesafeConfig = "1.3.1"
@@ -89,8 +89,10 @@ lazy val settings =
 
 lazy val commonSettings =
   Seq(
-    scalaVersion := "2.11.8",
-    crossScalaVersions := Seq(scalaVersion.value, "2.11.8"),
+    //scalaVersion := "2.11.8",
+    //crossScalaVersions := Seq(scalaVersion.value, "2.11.8"),
+    scalaVersion := "2.12.1",
+    crossScalaVersions := Seq(scalaVersion.value, "2.12.1"),
     organization := "io.uport",
     licenses += ("Apache 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
     mappings.in(Compile, packageBin) += baseDirectory.in(ThisBuild).value / "LICENSE" -> "LICENSE",
@@ -110,7 +112,7 @@ lazy val commonSettings =
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
     unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
-    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+    credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
   )
 
 lazy val buildInfoSettings = Seq(
@@ -126,6 +128,7 @@ lazy val gitSettings =
   )
 
 import de.heikoseeberger.sbtheader.license.Apache2_0
+
 lazy val headerSettings = Seq(
   headers := Map(
     "scala" -> Apache2_0("2017", "David Schmitz"),
@@ -143,6 +146,7 @@ lazy val dockerSettings = Seq(
 
 lazy val wartRemoverSettings = Seq(
   wartremoverErrors in (Compile, compile) ++= Warts.unsafe,
+  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
   wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
 
@@ -160,6 +164,7 @@ lazy val publishSettings = Seq(
 
 import sbtrelease.ReleasePlugin.autoImport._
 import ReleaseTransformations._
+
 lazy val releaseSettings = Seq(
   releaseProcess := Seq[ReleaseStep](
     checkSnapshotDependencies,
