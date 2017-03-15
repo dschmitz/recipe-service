@@ -18,11 +18,13 @@ package io.uport.recipe.config
 
 import com.typesafe.config.{ Config, ConfigFactory }
 
+import scala.util.Try
+
 object Settings {
 
-  private lazy val config: Config = ConfigFactory.load()
-  private val httpConfig: Config  = config.getConfig("http")
+  private val config: Config     = ConfigFactory.load()
+  private val httpConfig: Config = config.getConfig("http")
 
-  val httpHost: String = httpConfig.getString("host")
-  val httpPort: Int    = httpConfig.getInt("port")
+  val httpHost: String = Try(httpConfig.getString("host")).getOrElse("0.0.0.0")
+  val httpPort: Int    = Try(httpConfig.getInt("port")).getOrElse(8000)
 }

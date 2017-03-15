@@ -41,15 +41,15 @@ lazy val library =
       val akka           = "2.4.17"
       val akkaHttp       = "10.0.4"
       val akkaHttpCors   = "0.1.11"
-      val akkaHttpJson   = "1.12.0"
+      val akkaHttpJson   = "1.13.0"
       val akkaLog4j      = "1.3.0"
       val circe          = "0.7.0"
       val swagger        = "0.9.1"
       val log4j          = "2.8.1"
-      val scalaCheck     = "1.13.4"
+      val scalaCheck     = "1.13.5"
       val scalaTest      = "3.0.1"
       val typesafeConfig = "1.3.1"
-      val gatling        = "2.2.3"
+      val gatling        = "2.2.4"
     }
 
     val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
@@ -78,19 +78,18 @@ lazy val library =
 // *****************************************************************************        |
 
 lazy val settings =
-  commonSettings ++
-  wartRemoverSettings ++
-  gitSettings ++
-  headerSettings ++
-  buildInfoSettings ++
-  dockerSettings ++
-  publishSettings ++
-  releaseSettings
+commonSettings ++
+wartRemoverSettings ++
+gitSettings ++
+headerSettings ++
+buildInfoSettings ++
+dockerSettings ++
+publishSettings ++
+releaseSettings ++
+scoverageSettings
 
 lazy val commonSettings =
   Seq(
-    //scalaVersion := "2.11.8",
-    //crossScalaVersions := Seq(scalaVersion.value, "2.11.8"),
     scalaVersion := "2.12.1",
     crossScalaVersions := Seq(scalaVersion.value, "2.12.1"),
     organization := "io.uport",
@@ -102,7 +101,8 @@ lazy val commonSettings =
       "-language:_",
       "-target:jvm-1.8",
       "-encoding",
-      "UTF-8"
+      "UTF-8",
+      "-feature"
     ),
     javacOptions ++= Seq(
       "-source",
@@ -146,8 +146,13 @@ lazy val dockerSettings = Seq(
 
 lazy val wartRemoverSettings = Seq(
   wartremoverErrors in (Compile, compile) ++= Warts.unsafe,
-  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
+//  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
   wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
+)
+
+lazy val scoverageSettings = Seq(
+  coverageMinimum := 60,
+  coverageFailOnMinimum := false
 )
 
 lazy val publishSettings = Seq(

@@ -5,6 +5,12 @@
 
 Welcome to recipe-service!
 
+## Build ## 
+
+* sbt clean compile
+* sbt test coverage coverageReport
+* sbt docker:publishLocal
+
 ## Contribution policy ##
 
 Contributions via GitHub pull requests are gladly accepted from their original

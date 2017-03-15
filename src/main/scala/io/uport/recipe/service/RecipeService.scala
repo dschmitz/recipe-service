@@ -16,24 +16,39 @@
 
 package io.uport.recipe.service
 
-import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.{ IncomingConnection, ServerBinding }
-import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.Source
+import akka.http.scaladsl.server.Route._
+import akka.stream.scaladsl.{ Sink, Source }
+import io.uport.recipe.config.AkkaConfig
+import io.uport.recipe.routes.Routes
 
-import scala.concurrent.{ ExecutionContextExecutor, Future }
+import scala.concurrent.Future
+import scala.io.StdIn
 
-object RecipeService extends App {
-
-  implicit val actorSystem: ActorSystem                   = ActorSystem("recipe-service")
-  implicit val materializer: ActorMaterializer            = ActorMaterializer()
-  implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
+object RecipeService extends App with AkkaConfig {
 
   import io.uport.recipe.config.Settings._
 
   val service: Source[IncomingConnection, Future[ServerBinding]] = Http(actorSystem).bind(httpHost, httpPort)
 
-//  log.info(s"\nAkka HTTP Server - Version ${actorSystem.settings.ConfigVersion} - running at http://$httpHost:$httpPort/")
+  log.info(s"\nAkka HTTP Server - Version ${actorSystem.settings.ConfigVersion} - running at http://$httpHost:$httpPort/")
+
+  val handler: Future[ServerBinding] =
+    service
+      .to(
+        Sink.foreach { connection =>
+          connection.handleWithAsyncHandler(asyncHandler(Routes.availableRoutes))
+        }
+      )
+      .run()
+
+  handler.failed.foreach { case ex: Exception => log.error(ex, "Failed to bind to {}:{}", httpHost, httpPort) }
+
+  val std = StdIn.readLine(s"\nPress RETURN to stop...")
+
+  handler
+    .flatMap(binding => binding.unbind())
+    .onComplete(_ => actorSystem.terminate())
 
 }

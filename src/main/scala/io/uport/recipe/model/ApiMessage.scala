@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package io.uport.recipe.routes
+package io.uport.recipe.model
 
-import akka.http.scaladsl.coding.Gzip
-import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server._
-import ch.megard.akka.http.cors.CorsDirectives._
+/**
+  * Created by schmitda on 12.03.17.
+  */
+import akka.actor.ActorSystem
+import io.uport.recipe.buildinfo.BuildInfo
 
-trait BaseRoute {
+final case class ApiMessage(message: String)
 
-  //For more information regarding the CORS directive, please https://github.com/lomigmegard/akka-http-cors
+object ApiStatusMessages {
 
-  def api(dsl: Route, prefix: Boolean): Route = api(dsl, prefix, "")
+  def currentStatus()(implicit actorSystem: ActorSystem) =
+    s"""|service: ${actorSystem.name} | uptime: ${(actorSystem.uptime.toFloat / 3600).formatted("%10.2f")} hours
+        |
+        |${BuildInfo}
+     """.stripMargin
 
-  def api(dsl: Route, prefix: Boolean, version: String): Route =
-    cors() {
-      if (prefix) pathPrefix("api" / version)(encodeResponseWith(Gzip)(dsl))
-      else encodeResponseWith(Gzip)(dsl)
-    }
-
+  val unknownException = "An error occurred during the request."
 }
