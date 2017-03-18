@@ -7,9 +7,19 @@ Welcome to recipe-service!
 
 ## Build ## 
 
-* sbt clean compile
-* sbt test coverage coverageReport
-* sbt docker:publishLocal
+``` scala
+sbt clean compile
+
+sbt test coverage coverageReport
+
+sbt docker:publishLocal
+
+sbt 'gatling:testOnly io.uport.recipe.RecipeServiceSimulation'
+```
+
+## Note ##
+
+This software only compiles with scala 2.11 for now as gatling is not yet ready for 2.12!
 
 ## Contribution policy ##
 

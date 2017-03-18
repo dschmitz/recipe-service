@@ -28,11 +28,14 @@ trait AkkaConfig {
   implicit val materializer: ActorMaterializer            = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
 
-  private implicit val logSource: LogSource[AkkaConfig] = (t: AkkaConfig) => t.getClass.getSimpleName
+  // Scala 2.12
+  //  private def logger(implicit logSource: LogSource[_ <: AkkaConfig]) = Logging(actorSystem, this.getClass)
+  //
+  //  private implicit val logSource: LogSource[AkkaConfig] = (t: AkkaConfig) => t.getClass.getSimpleName
+  //
+  //  implicit val log = logger
 
-  private def logger(implicit logSource: LogSource[_ <: AkkaConfig]) = Logging(actorSystem, this.getClass)
-
-  implicit val log = logger
+  implicit val log = Logging(actorSystem, this.getClass)
 
 }
 

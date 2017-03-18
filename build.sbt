@@ -19,8 +19,10 @@ lazy val `recipe-service` =
         library.circeGeneric,
         library.circeParser,
         library.typesafeConfig,
-        library.akkaLog4j,
+        library.akkaSlf4j,
         library.log4jCore,
+        library.log4j,
+        library.log4jSlf4jImpl,
         library.scalaCheck,
         library.scalaTest,
         library.akkaMultiNodeTestkit,
@@ -38,8 +40,9 @@ lazy val library =
   new {
 
     object Version {
+      val scala          = "2.11.8"
       val akka           = "2.4.17"
-      val akkaHttp       = "10.0.4"
+      val akkaHttp       = "10.0.5"
       val akkaHttpCors   = "0.1.11"
       val akkaHttpJson   = "1.13.0"
       val akkaLog4j      = "1.3.0"
@@ -52,25 +55,30 @@ lazy val library =
       val gatling        = "2.2.4"
     }
 
-    val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
-    val akkaCluster          = "com.typesafe.akka"            %% "akka-cluster"             % Version.akka
-    val akkaHttp             = "com.typesafe.akka"            %% "akka-http"                % Version.akkaHttp
-    val akkaHttpCore         = "com.typesafe.akka"            %% "akka-http-core"           % Version.akkaHttp
-    val akkaHttpCors         = "ch.megard"                    %% "akka-http-cors"           % Version.akkaHttpCors
-    val akkaHttpCirce        = "de.heikoseeberger"            %% "akka-http-circe"          % Version.akkaHttpJson
-    val circeCore            = "io.circe"                     %% "circe-core"               % Version.circe
-    val circeGeneric         = "io.circe"                     %% "circe-generic"            % Version.circe
-    val circeParser          = "io.circe"                     %% "circe-parser"             % Version.circe
-    val swagger              = "com.github.swagger-akka-http" %% "swagger-akka-http"        % Version.swagger
-    val typesafeConfig       = "com.typesafe"                 % "config"                    % Version.typesafeConfig
-    val akkaLog4j            = "de.heikoseeberger"            %% "akka-log4j"               % Version.akkaLog4j
-    val log4jCore            = "org.apache.logging.log4j"     % "log4j-core"                % Version.log4j
-    val scalaCheck           = "org.scalacheck"               %% "scalacheck"               % Version.scalaCheck % Test
-    val scalaTest            = "org.scalatest"                %% "scalatest"                % Version.scalaTest % Test
-    val akkaMultiNodeTestkit = "com.typesafe.akka"            %% "akka-multi-node-testkit"  % Version.akka % Test
-    val akkaHttpTestkit      = "com.typesafe.akka"            %% "akka-http-testkit"        % Version.akkaHttp % Test
-    val gatling              = "io.gatling"                   % "gatling-test-framework"    % Version.gatling % "test,it"
-    val gatlingHighcharts    = "io.gatling.highcharts"        % "gatling-charts-highcharts" % Version.gatling % "test,it"
+    val akkaActor      = "com.typesafe.akka"            %% "akka-actor"        % Version.akka
+    val akkaCluster    = "com.typesafe.akka"            %% "akka-cluster"      % Version.akka
+    val akkaHttp       = "com.typesafe.akka"            %% "akka-http"         % Version.akkaHttp
+    val akkaHttpCore   = "com.typesafe.akka"            %% "akka-http-core"    % Version.akkaHttp
+    val akkaHttpCors   = "ch.megard"                    %% "akka-http-cors"    % Version.akkaHttpCors
+    val akkaHttpCirce  = "de.heikoseeberger"            %% "akka-http-circe"   % Version.akkaHttpJson
+    val circeCore      = "io.circe"                     %% "circe-core"        % Version.circe
+    val circeGeneric   = "io.circe"                     %% "circe-generic"     % Version.circe
+    val circeParser    = "io.circe"                     %% "circe-parser"      % Version.circe
+    val swagger        = "com.github.swagger-akka-http" %% "swagger-akka-http" % Version.swagger
+    val typesafeConfig = "com.typesafe"                 % "config"             % Version.typesafeConfig
+    val akkaSlf4j      = "com.typesafe.akka"            %% "akka-slf4j"        % Version.akka
+//    val akkaLog4j            = "de.heikoseeberger"            %% "akka-log4j"               % Version.akkaLog4j
+    val log4jCore = "org.apache.logging.log4j" % "log4j-core" % Version.log4j
+
+    val log4jSlf4jImpl = "org.apache.logging.log4j" % "log4j-slf4j-impl" % Version.log4j
+    val log4j          = "org.apache.logging.log4j" % "log4j-api"        % Version.log4j
+
+    val scalaCheck           = "org.scalacheck"        %% "scalacheck"               % Version.scalaCheck % Test
+    val scalaTest            = "org.scalatest"         %% "scalatest"                % Version.scalaTest  % Test
+    val akkaMultiNodeTestkit = "com.typesafe.akka"     %% "akka-multi-node-testkit"  % Version.akka       % Test
+    val akkaHttpTestkit      = "com.typesafe.akka"     %% "akka-http-testkit"        % Version.akkaHttp   % Test
+    val gatling              = "io.gatling"            % "gatling-test-framework"    % Version.gatling    % "test,it"
+    val gatlingHighcharts    = "io.gatling.highcharts" % "gatling-charts-highcharts" % Version.gatling    % "test,it"
   }
 
 // *****************************************************************************
@@ -90,8 +98,8 @@ scoverageSettings
 
 lazy val commonSettings =
   Seq(
-    scalaVersion := "2.12.1",
-    crossScalaVersions := Seq(scalaVersion.value, "2.12.1"),
+    scalaVersion := library.Version.scala,
+    crossScalaVersions := Seq(scalaVersion.value, library.Version.scala),
     organization := "io.uport",
     licenses += ("Apache 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
     mappings.in(Compile, packageBin) += baseDirectory.in(ThisBuild).value / "LICENSE" -> "LICENSE",
