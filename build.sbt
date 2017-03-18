@@ -120,6 +120,7 @@ lazy val commonSettings =
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
     unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
+    incOptions := incOptions.value.withNameHashing(true),
     credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
   )
 
