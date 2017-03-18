@@ -127,7 +127,6 @@ lazy val commonSettings =
 lazy val buildInfoSettings = Seq(
   buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
   buildInfoPackage := "io.uport.recipe.buildinfo",
-  buildInfoOptions += BuildInfoOption.ToJson,
   buildInfoOptions += BuildInfoOption.BuildTime
 )
 
