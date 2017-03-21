@@ -3,6 +3,10 @@ lib_managed
 project/project
 target
 
+# binaries
+*.jar
+*.class
+
 # Worksheets (Eclipse or IntelliJ)
 *.sc
 
