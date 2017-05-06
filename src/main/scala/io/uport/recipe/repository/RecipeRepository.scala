@@ -25,9 +25,9 @@ object RecipeRepository {
 
   private val carrotGingerSoup =
     Recipe(
-      id    = 1,
+      id = 1,
       stars = 5,
-      name  = "Soup",
+      name = "Soup",
       Difficulty.Easy,
       minutes = 15,
       persons = 2,
@@ -38,9 +38,9 @@ object RecipeRepository {
 
   private val panCake =
     Recipe(
-      id    = 2,
+      id = 2,
       stars = 5,
-      name  = "Pancake",
+      name = "Pancake",
       Difficulty.Easy,
       minutes = 15,
       persons = 2,
@@ -49,8 +49,8 @@ object RecipeRepository {
       List[CookingStep](CookingStep("Prepare"), CookingStep("Cook"), CookingStep("Serve"))
     )
 
-  private val recipes: List[Recipe]                     = List(carrotGingerSoup, panCake)
-  private val recipesById: Map[Int, Recipe]             = recipes.map(r => (r.id -> r)).toMap
+  private val recipes: List[Recipe] = List(carrotGingerSoup, panCake)
+  private val recipesById: Map[Int, Recipe] = recipes.map(r => (r.id -> r)).toMap
   private val recipesByName: Map[(String, Int), Recipe] = recipes.map(r => ((r.name, r.id) -> r)).toMap
 
   def getRecipe(id: Int): Future[Option[Recipe]] = Future {

@@ -19,7 +19,7 @@ package io.uport.recipe.routes
 import akka.http.scaladsl.coding.Gzip
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
-import ch.megard.akka.http.cors.CorsDirectives._
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 
 trait BaseRoute {
 
