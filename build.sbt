@@ -44,13 +44,13 @@ lazy val library =
     object Version {
       val scala          = "2.11.11"
       val akka           = "2.5.3"
-      val akkaHttp       = "10.0.8"
+      val akkaHttp       = "10.0.9"
       val akkaHttpCors   = "0.2.1"
       val akkaHttpJson   = "1.17.0"
       val akkaLog4j      = "1.3.0"
       val circe          = "0.8.0"
-      val swagger        = "0.9.2"
-      val swaggerJaxrs   = "1.5.15"
+      val swagger        = "0.10.0"
+      val swaggerJaxrs   = "1.5.16"
       val log4j          = "2.8.2"
       val scalaCheck     = "1.13.5"
       val scalaTest      = "3.0.3"
@@ -92,6 +92,7 @@ lazy val library =
 
 lazy val settings =
 commonSettings ++
+scalafmtSettings ++
 wartRemoverSettings ++
 gitSettings ++
 headerSettings ++
@@ -131,6 +132,13 @@ lazy val commonSettings =
     unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
     incOptions := incOptions.value.withNameHashing(true),
     credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+  )
+
+lazy val scalafmtSettings =
+  Seq(
+    scalafmtOnCompile := true,
+    scalafmtOnCompile.in(Sbt) := false,
+    scalafmtVersion := "1.1.0"
   )
 
 lazy val buildInfoSettings = Seq(
