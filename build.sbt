@@ -159,7 +159,7 @@ lazy val headerSettings = Seq(
 )
 
 lazy val dockerSettings = Seq(
-  daemonUser.in(Docker) := "nobody",
+  //daemonUser.in(Docker) := "nobody",
   maintainer.in(Docker) := "David Schmitz",
   dockerBaseImage := "java:8",
   dockerExposedPorts := Vector(8000),
