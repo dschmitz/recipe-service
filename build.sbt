@@ -49,11 +49,11 @@ lazy val library =
       val akkaHttpJson   = "1.17.0"
       val akkaLog4j      = "1.3.0"
       val circe          = "0.8.0"
-      val swagger        = "0.10.1"
+      val swagger        = "0.11.0"
       val swaggerJaxrs   = "1.5.16"
       val log4j          = "2.8.2"
       val scalaCheck     = "1.13.5"
-      val scalaTest      = "3.0.3"
+      val scalaTest      = "3.0.4"
       val typesafeConfig = "1.3.1"
       val gatling        = "2.2.5"
     }
@@ -152,17 +152,14 @@ lazy val gitSettings =
     git.useGitDescribe := true
   )
 
-import de.heikoseeberger.sbtheader.license.Apache2_0
+import de.heikoseeberger.sbtheader.License._
 
 lazy val headerSettings = Seq(
-  headers := Map(
-    "scala" -> Apache2_0("2017", "David Schmitz"),
-    "conf" -> Apache2_0("2017", "David Schmitz", "#")
-  )
+    headerLicense := Some(ALv2("2017", "David Schmitz"))
 )
 
 lazy val dockerSettings = Seq(
-  //daemonUser.in(Docker) := "root",
+  daemonUser.in(Docker) := "nobody",
   maintainer.in(Docker) := "David Schmitz",
   dockerBaseImage := "java:8",
   dockerExposedPorts := Vector(8000),
