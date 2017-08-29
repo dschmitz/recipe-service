@@ -29,8 +29,11 @@ trait BaseRoute {
 
   def api(dsl: Route, prefix: Boolean, version: String): Route =
     cors() {
-      if (prefix) pathPrefix("api" / version)(encodeResponseWith(Gzip)(dsl))
-      else encodeResponseWith(Gzip)(dsl)
+      if (prefix) {
+        pathPrefix("api" / version)(encodeResponseWith(Gzip)(dsl))
+      }
+      else {
+        encodeResponseWith(Gzip)(dsl)
+      }
     }
-
 }
