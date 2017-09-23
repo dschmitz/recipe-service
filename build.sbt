@@ -129,7 +129,7 @@ lazy val commonSettings =
       "1.8"
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
-    unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
+    unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value)
     //incOptions := incOptions.value.withNameHashing(true),
   )
 
@@ -166,7 +166,7 @@ lazy val dockerSettings = Seq(
 )
 
 lazy val wartRemoverSettings = Seq(
-  wartremoverErrors in (Compile, compile) ++= Warts.unsafe,
+  wartremoverErrors in (Compile, compile) ++= Warts.unsafe
 //  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
 //  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
