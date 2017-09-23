@@ -21,7 +21,7 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
 import io.uport.recipe.model.{ ApiMessage, ApiStatusMessages }
-import de.heikoseeberger.akkahttpcirce.ErrorAccumulatingCirceSupport._
+//import de.heikoseeberger.akkahttpcirce.ErrorAccumulatingCirceSupport._
 
 import scala.concurrent.Future
 import scala.util.{ Failure, Success }
@@ -29,7 +29,7 @@ import scala.util.{ Failure, Success }
 trait ResponseFactory {
 
   import io.uport.recipe.config.AkkaConfig._
-  import io.circe.generic.auto._
+//  import io.circe.generic.auto._
 
   def sendResponse[T](eventualResult: Future[T])(implicit marshaller: T => ToResponseMarshallable): Route =
     onComplete(eventualResult) {

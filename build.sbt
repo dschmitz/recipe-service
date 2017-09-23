@@ -19,7 +19,7 @@ lazy val `recipe-service` =
         library.circeGeneric,
         library.circeParser,
         library.typesafeConfig,
-        library.akkaSlf4j,
+        library.akkaLog4j,
         library.log4jCore,
         library.log4j,
         library.log4jSlf4jImpl,
@@ -42,20 +42,20 @@ lazy val library =
   new {
 
     object Version {
-      val scala          = "2.11.11"
+      val scala          = "2.12.3"
       val akka           = "2.5.4"
-      val akkaHttp       = "10.0.9"
+      val akkaHttp       = "10.0.10"
       val akkaHttpCors   = "0.2.1"
-      val akkaHttpJson   = "1.17.0"
-      val akkaLog4j      = "1.3.0"
+      val akkaHttpJson   = "1.18.0"
+      val akkaLog4j      = "1.5.0"
       val circe          = "0.8.0"
       val swagger        = "0.11.0"
       val swaggerJaxrs   = "1.5.16"
-      val log4j          = "2.8.2"
+      val log4j          = "2.9.1"
       val scalaCheck     = "1.13.5"
       val scalaTest      = "3.0.4"
       val typesafeConfig = "1.3.1"
-      val gatling        = "2.2.5"
+      val gatling        = "2.3.0"
     }
 
     val akkaActor     = "com.typesafe.akka"            %% "akka-actor"        % Version.akka
@@ -70,10 +70,10 @@ lazy val library =
     val swagger       = "com.github.swagger-akka-http" %% "swagger-akka-http" % Version.swagger
     val swaggerJaxrs  = "io.swagger"                   % "swagger-jaxrs"      % Version.swaggerJaxrs
 
-    val typesafeConfig = "com.typesafe"      % "config"      % Version.typesafeConfig
-    val akkaSlf4j      = "com.typesafe.akka" %% "akka-slf4j" % Version.akka
-//    val akkaLog4j            = "de.heikoseeberger"            %% "akka-log4j"               % Version.akkaLog4j
-    val log4jCore = "org.apache.logging.log4j" % "log4j-core" % Version.log4j
+    val typesafeConfig = "com.typesafe" % "config" % Version.typesafeConfig
+    //  val akkaSlf4j      = "com.typesafe.akka" %% "akka-slf4j" % Version.akka
+    val akkaLog4j = "de.heikoseeberger"        %% "akka-log4j" % Version.akkaLog4j
+    val log4jCore = "org.apache.logging.log4j" % "log4j-core"  % Version.log4j
 
     val log4jSlf4jImpl = "org.apache.logging.log4j" % "log4j-slf4j-impl" % Version.log4j
     val log4j          = "org.apache.logging.log4j" % "log4j-api"        % Version.log4j
@@ -130,15 +130,15 @@ lazy val commonSettings =
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
     unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
-    incOptions := incOptions.value.withNameHashing(true),
+    //incOptions := incOptions.value.withNameHashing(true),
     credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
   )
 
 lazy val scalafmtSettings =
   Seq(
     scalafmtOnCompile := true,
-    scalafmtOnCompile.in(Sbt) := false,
-    scalafmtVersion := "1.1.0"
+    scalafmtOnCompile.in(Sbt) := true,
+    scalafmtVersion := "1.2.0"
   )
 
 lazy val buildInfoSettings = Seq(
@@ -155,7 +155,7 @@ lazy val gitSettings =
 import de.heikoseeberger.sbtheader.License._
 
 lazy val headerSettings = Seq(
-    headerLicense := Some(ALv2("2017", "David Schmitz"))
+  headerLicense := Some(ALv2("2017", "David Schmitz"))
 )
 
 lazy val dockerSettings = Seq(
@@ -169,7 +169,7 @@ lazy val dockerSettings = Seq(
 lazy val wartRemoverSettings = Seq(
   wartremoverErrors in (Compile, compile) ++= Warts.unsafe,
 //  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
-  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
+//  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
 
 lazy val scoverageSettings = Seq(

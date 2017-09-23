@@ -31,8 +31,7 @@ trait BaseRoute {
     cors() {
       if (prefix) {
         pathPrefix("api" / version)(encodeResponseWith(Gzip)(dsl))
-      }
-      else {
+      } else {
         encodeResponseWith(Gzip)(dsl)
       }
     }
