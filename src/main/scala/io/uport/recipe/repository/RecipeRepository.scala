@@ -25,9 +25,9 @@ object RecipeRepository {
 
   private val carrotGingerSoup =
     Recipe(
-      id    = 1,
+      id = 1,
       stars = 5,
-      name  = "Soup",
+      name = "Soup",
       Difficulty.Easy,
       minutes = 15,
       persons = 2,
@@ -38,9 +38,9 @@ object RecipeRepository {
 
   private val panCake =
     Recipe(
-      id    = 2,
+      id = 2,
       stars = 5,
-      name  = "Pancake",
+      name = "Pancake",
       Difficulty.Easy,
       minutes = 15,
       persons = 2,
