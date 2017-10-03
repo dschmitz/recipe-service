@@ -133,7 +133,7 @@ lazy val scalafmtSettings =
   Seq(
     scalafmtOnCompile         := true,
     scalafmtOnCompile.in(Sbt) := true,
-    scalafmtVersion           := "1.2.0"
+    scalafmtVersion           := "1.3.0"
   )
 
 lazy val buildInfoSettings = Seq(
@@ -178,9 +178,9 @@ lazy val publishSettings = Seq(
   publishTo := {
     val nexus = "http://127.0.0.1:48081/"
     if (isSnapshot.value) {
-      Some("snapshots" at nexus + "repository/maven-snapshots")
+      Some("snapshots".at(nexus + "repository/maven-snapshots"))
     } else {
-      Some("releases" at nexus + "repository/maven-releases")
+      Some("releases".at(nexus + "repository/maven-releases"))
     }
   }
 )
