@@ -87,16 +87,16 @@ lazy val library =
 // *****************************************************************************        |
 
 lazy val settings =
-commonSettings ++
-scalafmtSettings ++
-wartRemoverSettings ++
-gitSettings ++
-headerSettings ++
-buildInfoSettings ++
-dockerSettings ++
-publishSettings ++
-releaseSettings ++
-scoverageSettings
+  commonSettings ++
+    scalafmtSettings ++
+    wartRemoverSettings ++
+    gitSettings ++
+    headerSettings ++
+    buildInfoSettings ++
+    dockerSettings ++
+    publishSettings ++
+    releaseSettings ++
+    scoverageSettings
 
 lazy val commonSettings =
   Seq(
@@ -163,8 +163,8 @@ lazy val dockerSettings = Seq(
 
 lazy val wartRemoverSettings = Seq(
   wartremoverErrors in (Compile, compile) ++= Warts.unsafe
-//  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
-//  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
+  //  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
+  //  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
 
 lazy val scoverageSettings = Seq(
