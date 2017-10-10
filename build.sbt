@@ -54,7 +54,7 @@ lazy val library =
       val log4j          = "2.9.1"
       val scalaCheck     = "1.13.5"
       val scalaTest      = "3.0.4"
-      val typesafeConfig = "1.3.1"
+      val typesafeConfig = "1.3.2"
       val gatling        = "2.3.0"
     }
 
@@ -162,7 +162,7 @@ lazy val dockerSettings = Seq(
 )
 
 lazy val wartRemoverSettings = Seq(
-  wartremoverErrors in (Compile, compile) ++= Warts.unsafe
+  wartremoverWarnings in (Compile, compile) ++= Warts.unsafe
   //  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
   //  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
