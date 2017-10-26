@@ -26,7 +26,7 @@ import io.uport.recipe.routes.Routes
 import scala.concurrent.Future
 import scala.io.StdIn
 
-object RecipeService extends App with AkkaConfig {
+class RecipeService extends App with AkkaConfig {
 
   import io.uport.recipe.config.Settings._
 

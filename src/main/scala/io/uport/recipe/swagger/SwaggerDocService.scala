@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-//package io.uport.recipe.swagger
-//
-//import com.github.swagger.akka.model.Info
-//
-//import scala.reflect.runtime.{universe => ru}
-//import akka.actor.ActorSystem
-//import akka.stream.ActorMaterializer
-//import com.github.swagger.akka._
-//
-//class SwaggerDocService(address: String, port: Int, system: ActorSystem) extends SwaggerHttpService with HasActorSystem {
-//  override implicit val actorSystem: ActorSystem = system
-//  override implicit val materializer: ActorMaterializer = ActorMaterializer()
-//  override val apiTypes = Seq(ru.typeOf[io.uport.recipe.routes.Routes])
-//  override val host = s"${address}:${port}"
-//  override val info = Info(version = "1.0")
-//}
+package io.uport.recipe.swagger
+
+import com.github.swagger.akka.SwaggerHttpService
+import io.uport.recipe.service.RecipeService
+import com.github.swagger.akka.model.Info
+
+object SwaggerDocService extends SwaggerHttpService {
+
+  import io.uport.recipe.config.Settings._
+
+  override val apiClasses: Set[Class[_]] = Set(classOf[RecipeService])
+  override val host                      = s"${httpHost}:${httpPort}"
+  //the url of your api, not swagger's json endpoint
+  override val basePath    = "/"                   //the basePath for the API you are exposing
+  override val apiDocsPath = "api-docs"            //where you want the swagger-json endpoint exposed
+  override val info        = Info(version = "1.0") //provides license and other description details
+}

@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package io.uport.recipe.config
+package io.uport.recipe.swagger
 
-import com.typesafe.config.{ Config, ConfigFactory }
+import akka.http.scaladsl.server.Directives
 
-import scala.util.Try
+trait SwaggerUi extends Directives {
 
-object Settings {
+  val site =
+    path("swagger") {
+      getFromResource("swagger/index.html")
+    } ~
+      getFromResourceDirectory("swagger")
 
-  private val config: Config      = ConfigFactory.load()
-  private val httpConfig: Config  = config.getConfig("http")
-  private val defaultHost: String = "0.0.0.0"
-  private val defaultPort: Int    = 8000
-
-  val httpHost: String = Try(httpConfig.getString("host")).getOrElse(defaultHost)
-  val httpPort: Int    = Try(httpConfig.getInt("port")).getOrElse(defaultPort)
 }
