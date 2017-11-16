@@ -17,14 +17,14 @@
 package io.uport.recipe.swagger
 
 import com.github.swagger.akka.SwaggerHttpService
-import io.uport.recipe.service.RecipeService
 import com.github.swagger.akka.model.Info
+import io.uport.recipe.routes.Routes
 
 object SwaggerDocService extends SwaggerHttpService {
 
   import io.uport.recipe.config.Settings._
 
-  override val apiClasses: Set[Class[_]] = Set(classOf[RecipeService])
+  override val apiClasses: Set[Class[_]] = Set(classOf[Routes])
   override val host                      = s"${httpHost}:${httpPort}"
   //the url of your api, not swagger's json endpoint
   override val basePath    = "/"                   //the basePath for the API you are exposing

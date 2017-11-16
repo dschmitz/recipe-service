@@ -26,7 +26,7 @@ import io.uport.recipe.routes.Routes
 import scala.concurrent.Future
 import scala.io.StdIn
 
-class RecipeService extends App with AkkaConfig {
+object RecipeService extends App with AkkaConfig {
 
   import io.uport.recipe.config.Settings._
 
@@ -38,7 +38,7 @@ class RecipeService extends App with AkkaConfig {
     service
       .to(
         Sink.foreach { connection =>
-          connection.handleWithAsyncHandler(asyncHandler(Routes.availableRoutes))
+          connection.handleWithAsyncHandler(asyncHandler(new Routes().availableRoutes))
         }
       )
       .run()

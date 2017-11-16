@@ -25,7 +25,7 @@ import io.uport.recipe.repository.RecipeRepository
 
 import scala.concurrent.Future
 
-object Routes extends BaseRoute with ResponseFactory with AkkaConfig {
+class Routes extends BaseRoute with ResponseFactory with AkkaConfig {
 
   import io.circe.generic.auto._
 
