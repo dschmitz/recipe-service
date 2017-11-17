@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  demo-akka-http:
+  recipe-service:
     image: uport/recipe-service
     ports:
       - 8000:8000
