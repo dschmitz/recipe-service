@@ -2,6 +2,6 @@ version: '2'
 
 services:
   recipe-service:
-    image: uport/recipe-service
+    image: uport/recipe-service:0.1.0-SNAPSHOT
     ports:
       - 8000:8000
