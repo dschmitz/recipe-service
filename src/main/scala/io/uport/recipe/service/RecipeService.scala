@@ -18,10 +18,12 @@ package io.uport.recipe.service
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.{ IncomingConnection, ServerBinding }
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route._
 import akka.stream.scaladsl.{ Sink, Source }
 import io.uport.recipe.config.AkkaConfig
-import io.uport.recipe.routes.Routes
+import io.uport.recipe.routes.RecipeServiceRoutes
+import io.uport.recipe.swagger.SwaggerDocService
 
 import scala.concurrent.Future
 import scala.io.StdIn
@@ -38,7 +40,8 @@ object RecipeService extends App with AkkaConfig {
     service
       .to(
         Sink.foreach { connection =>
-          connection.handleWithAsyncHandler(asyncHandler(new Routes().availableRoutes))
+          connection
+            .handleWithAsyncHandler(asyncHandler(new RecipeServiceRoutes().availableRoutes ~ SwaggerDocService.routes))
         }
       )
       .run()
