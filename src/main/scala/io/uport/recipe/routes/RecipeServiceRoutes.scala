@@ -20,7 +20,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import de.heikoseeberger.akkahttpcirce.ErrorAccumulatingCirceSupport._
 import io.uport.recipe.config.AkkaConfig
-import io.uport.recipe.model.{ ApiMessage, ApiStatusMessages }
+import io.uport.recipe.model.{ ApiStatusMessages }
 import io.uport.recipe.repository.RecipeRepository
 
 import scala.concurrent.Future
@@ -34,7 +34,7 @@ class RecipeServiceRoutes extends BaseRoute with ResponseFactory with AkkaConfig
       get {
         path("status") {
           extractRequest { req =>
-            sendResponse(Future(ApiMessage(ApiStatusMessages.currentStatus())))
+            sendResponse(Future(ApiStatusMessages.status()))
           }
         } ~
         path("recipe" / IntNumber) { id =>

@@ -23,14 +23,17 @@ import akka.actor.ActorSystem
 import io.uport.recipe.buildinfo.BuildInfo
 
 final case class ApiMessage(message: String)
+final case class ApiStatusMessage(message: String, buildInfo: String)
 
 object ApiStatusMessages {
 
-  def currentStatus()(implicit actorSystem: ActorSystem) =
-    s"""|service: ${actorSystem.name} | uptime: ${(actorSystem.uptime.toFloat / 3600).formatted("%10.2f")} hours
-        |
-        |${BuildInfo}
-     """.stripMargin
+  def currentStatus()(implicit actorSystem: ActorSystem): String =
+    (s"""|service: ${actorSystem.name}| uptime: ${(actorSystem.uptime.toFloat / 3600).formatted("%10.2f")} hours
+     """.stripMargin)
+
+  def buildInfo(): String = BuildInfo.toString
+
+  def status()(implicit actorSystem: ActorSystem): ApiStatusMessage = ApiStatusMessage(currentStatus(), buildInfo())
 
   val unknownException = "An error occurred during the request."
 }
