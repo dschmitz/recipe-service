@@ -16,11 +16,12 @@
 
 package io.uport.recipe.swagger
 
+import akka.http.scaladsl.server.Route
 import com.github.swagger.akka.SwaggerHttpService
 import com.github.swagger.akka.model.Info
 import io.uport.recipe.routes.RecipeServiceRoutes
 
-object SwaggerDocService extends SwaggerHttpService {
+object SwaggerDocService extends SwaggerHttpService with SwaggerUi {
 
   import io.uport.recipe.config.Settings._
 

@@ -41,7 +41,13 @@ object RecipeService extends App with AkkaConfig {
       .to(
         Sink.foreach { connection =>
           connection
-            .handleWithAsyncHandler(asyncHandler(new RecipeServiceRoutes().availableRoutes ~ SwaggerDocService.routes))
+            .handleWithAsyncHandler(
+              asyncHandler {
+                new RecipeServiceRoutes().availableRoutes ~
+                SwaggerDocService.routes ~
+                SwaggerDocService.site
+              }
+            )
         }
       )
       .run()
