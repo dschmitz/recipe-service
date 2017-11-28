@@ -37,6 +37,11 @@ class RecipeServiceRoutes extends BaseRoute with ResponseFactory with AkkaConfig
             sendResponse(Future(ApiStatusMessages.status()))
           }
         } ~
+        path("recipes") {
+          extractRequest { req =>
+            sendResponse(RecipeRepository.getRecipes())
+          }
+        } ~
         path("recipe" / IntNumber) { id =>
           extractRequest { req =>
             sendResponse(RecipeRepository.getRecipe(id))

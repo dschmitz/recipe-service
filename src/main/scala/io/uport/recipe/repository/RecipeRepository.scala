@@ -45,7 +45,7 @@ object RecipeRepository {
       minutes = 15,
       persons = 2,
       Budget.Low,
-      List[Ingredient](Ingredient("Sugger", 1, "Spoon"), Ingredient("Flour", 250, "g"), Ingredient("Water", 100, "ml")),
+      List[Ingredient](Ingredient("Sugar", 1, "Spoon"), Ingredient("Flour", 250, "g"), Ingredient("Water", 100, "ml")),
       List[CookingStep](CookingStep("Prepare"), CookingStep("Cook"), CookingStep("Serve"))
     )
 
@@ -56,6 +56,10 @@ object RecipeRepository {
   def getRecipe(id: Int): Future[Option[Recipe]] = Future {
     require(id > 0, "Id must be greater than zero.")
     recipesById.get(id)
+  }
+
+  def getRecipes(): Future[List[Recipe]] = Future {
+    recipes
   }
 
   def getRecipeByName(name: String): Future[List[Recipe]] = Future {
