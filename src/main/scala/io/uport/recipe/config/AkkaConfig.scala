@@ -31,11 +31,7 @@ trait AkkaConfig {
   // Scala 2.12
   private def logger(implicit logSource: LogSource[_ <: AkkaConfig]) = Logging(actorSystem, this.getClass)
   private implicit val logSource: LogSource[AkkaConfig]              = (t: AkkaConfig) => t.getClass.getSimpleName
-  //
-  implicit val log = logger
-
-  //implicit val log = Logging(actorSystem, this.getClass)
-
+  implicit val log                                                   = logger
 }
 
 object AkkaConfig extends AkkaConfig
