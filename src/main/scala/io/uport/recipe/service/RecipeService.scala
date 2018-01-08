@@ -58,6 +58,8 @@ object RecipeService extends App with AkkaConfig {
 
   handler
     .flatMap(binding => binding.unbind())
-    .onComplete(_ => actorSystem.terminate())
-
+    .onComplete { done =>
+      done.failed.foreach(ex => log.error(ex, "Failed unbinding"))
+      actorSystem.terminate()
+    }
 }
