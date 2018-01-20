@@ -15,6 +15,7 @@ lazy val `recipe-service` =
         library.akkaHttpCore,
         library.akkaHttpCors,
         library.akkaHttpCirce,
+        library.akkaStreams,
         library.circeCore,
         library.circeGeneric,
         library.circeParser,
@@ -44,11 +45,11 @@ lazy val library =
     object Version {
       val scala          = "2.12.4"
       val akka           = "2.5.9"
-      val akkaHttp       = "10.0.11"
+      val akkaHttp       = "10.1.0-RC1"
       val akkaHttpCors   = "0.2.2"
       val akkaHttpJson   = "1.19.0"
       val akkaLog4j      = "1.6.0"
-      val circe          = "0.9.0"
+      val circe          = "0.9.1"
       val swagger        = "0.11.2"
       val swaggerJaxrs   = "1.5.17"
       val log4j          = "2.10.0"
@@ -64,6 +65,7 @@ lazy val library =
     val akkaHttpCore         = "com.typesafe.akka"            %% "akka-http-core"           % Version.akkaHttp
     val akkaHttpCors         = "ch.megard"                    %% "akka-http-cors"           % Version.akkaHttpCors
     val akkaHttpCirce        = "de.heikoseeberger"            %% "akka-http-circe"          % Version.akkaHttpJson
+    val akkaStreams          = "com.typesafe.akka"            %% "akka-stream"              % Version.akka
     val circeCore            = "io.circe"                     %% "circe-core"               % Version.circe
     val circeGeneric         = "io.circe"                     %% "circe-generic"            % Version.circe
     val circeParser          = "io.circe"                     %% "circe-parser"             % Version.circe
