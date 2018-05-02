@@ -43,7 +43,7 @@ object RecipeService extends App with AkkaConfig {
           connection
             .handleWithAsyncHandler(
               asyncHandler {
-                new RecipeServiceRoutes().availableRoutes ~
+                new RecipeServiceRoutes().routes ~
                 SwaggerDocService.routes ~
                 SwaggerDocService.site
               }

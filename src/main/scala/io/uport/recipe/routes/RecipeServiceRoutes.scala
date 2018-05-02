@@ -73,5 +73,5 @@ class RecipeServiceRoutes extends BaseRoute with ResponseFactory with AkkaConfig
 //    }, prefix = true, version = "v2")
 //
 //  def availableRoutes: Route = apiV1 ~ apiV2
-  def availableRoutes: Route = apiV1
+  def routes: Route = apiV1
 }

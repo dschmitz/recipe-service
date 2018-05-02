@@ -5,7 +5,7 @@
 
 Welcome to recipe-service!
 
-## Build ## 
+## Build ##
 
 ``` scala
 sbt clean compile
@@ -16,6 +16,13 @@ sbt docker:publishLocal
 
 sbt 'gatling:testOnly io.uport.recipe.RecipeServiceSimulation'
 ```
+
+## Service paths ##
+0.0.0.0:8000
+swagger
+api-docs
+api-docs/swagger.json
+api/v1/service1/{element}
 
 ## Contribution policy ##
 

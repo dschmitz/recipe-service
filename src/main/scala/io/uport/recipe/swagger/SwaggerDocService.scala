@@ -19,6 +19,7 @@ package io.uport.recipe.swagger
 import akka.http.scaladsl.server.Route
 import com.github.swagger.akka.SwaggerHttpService
 import com.github.swagger.akka.model.Info
+import io.swagger.models.Scheme
 import io.uport.recipe.routes.RecipeServiceRoutes
 
 object SwaggerDocService extends SwaggerHttpService with SwaggerUi {
@@ -31,4 +32,6 @@ object SwaggerDocService extends SwaggerHttpService with SwaggerUi {
   override val basePath    = "/"                   //the basePath for the API you are exposing
   override val apiDocsPath = "api-docs"            //where you want the swagger-json endpoint exposed
   override val info        = Info(version = "1.0") //provides license and other description details
+
+  override def schemes = List(Scheme.HTTP, Scheme.HTTPS)
 }
