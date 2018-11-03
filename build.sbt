@@ -43,20 +43,20 @@ lazy val library =
   new {
 
     object Version {
-      val scala          = "2.12.6"
-      val akka           = "2.5.14"
-      val akkaHttp       = "10.1.3"
-      val akkaHttpCors   = "0.3.0"
-      val akkaHttpJson   = "1.21.0"
+      val scala          = "2.12.7"
+      val akka           = "2.5.17"
+      val akkaHttp       = "10.1.5"
+      val akkaHttpCors   = "0.3.1"
+      val akkaHttpCirce  = "1.22.0"
       val akkaLog4j      = "1.6.1"
-      val circe          = "0.9.3"
-      val swagger        = "0.14.1"
-      val swaggerJaxrs   = "1.5.20"
+      val circe          = "0.10.1"
+      val swagger        = "1.0.0"
+      val swaggerJaxrs   = "1.5.21"
       val log4j          = "2.11.1"
       val scalaCheck     = "1.14.0"
       val scalaTest      = "3.0.5"
       val typesafeConfig = "1.3.3"
-      val gatling        = "2.3.1"
+      val gatling        = "3.0.0"
     }
 
     val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
@@ -64,7 +64,7 @@ lazy val library =
     val akkaHttp             = "com.typesafe.akka"            %% "akka-http"                % Version.akkaHttp
     val akkaHttpCore         = "com.typesafe.akka"            %% "akka-http-core"           % Version.akkaHttp
     val akkaHttpCors         = "ch.megard"                    %% "akka-http-cors"           % Version.akkaHttpCors
-    val akkaHttpCirce        = "de.heikoseeberger"            %% "akka-http-circe"          % Version.akkaHttpJson
+    val akkaHttpCirce        = "de.heikoseeberger"            %% "akka-http-circe"          % Version.akkaHttpCirce
     val akkaStreams          = "com.typesafe.akka"            %% "akka-stream"              % Version.akka
     val circeCore            = "io.circe"                     %% "circe-core"               % Version.circe
     val circeGeneric         = "io.circe"                     %% "circe-generic"            % Version.circe
