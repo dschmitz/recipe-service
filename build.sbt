@@ -43,20 +43,20 @@ lazy val library =
   new {
 
     object Version {
-      val scala          = "2.12.7"
-      val akka           = "2.5.17"
-      val akkaHttp       = "10.1.5"
-      val akkaHttpCors   = "0.3.1"
-      val akkaHttpCirce  = "1.22.0"
+      val scala          = "2.12.8"
+      val akka           = "2.5.19"
+      val akkaHttp       = "10.1.6"
+      val akkaHttpCors   = "0.3.3"
+      val akkaHttpCirce  = "1.23.0"
       val akkaLog4j      = "1.6.1"
-      val circe          = "0.10.1"
+      val circe          = "0.11.0"
       val swagger        = "1.0.0"
       val swaggerJaxrs   = "1.5.21"
       val log4j          = "2.11.1"
       val scalaCheck     = "1.14.0"
       val scalaTest      = "3.0.5"
       val typesafeConfig = "1.3.3"
-      val gatling        = "3.0.0"
+      val gatling        = "3.0.2"
     }
 
     val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
