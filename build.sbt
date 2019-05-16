@@ -25,7 +25,8 @@ lazy val `recipe-service` =
         library.log4j,
         library.log4jSlf4jImpl,
         library.swagger,
-        library.swaggerJaxrs,
+        library.swaggerScala,
+        library.javaxWsRs,
         library.scalaCheck,
         library.scalaTest,
         library.akkaMultiNodeTestkit,
@@ -44,19 +45,20 @@ lazy val library =
 
     object Version {
       val scala          = "2.12.8"
-      val akka           = "2.5.20"
-      val akkaHttp       = "10.1.7"
-      val akkaHttpCors   = "0.3.4"
+      val akka           = "2.5.22"
+      val akkaHttp       = "10.1.8"
+      val akkaHttpCors   = "0.4.0"
       val akkaHttpCirce  = "1.25.2"
       val akkaLog4j      = "1.6.1"
       val circe          = "0.11.1"
-      val swagger        = "1.0.0"
-      val swaggerJaxrs   = "1.5.21"
-      val log4j          = "2.11.1"
+      val swagger        = "2.0.2"
+      val swaggerScala   = "2.0.4"
+      val javaxWsRs      = "2.0.1"
+      val log4j          = "2.11.2"
       val scalaCheck     = "1.14.0"
-      val scalaTest      = "3.0.5"
-      val typesafeConfig = "1.3.3"
-      val gatling        = "3.0.3"
+      val scalaTest      = "3.0.7"
+      val typesafeConfig = "1.3.4"
+      val gatling        = "3.1.1"
     }
 
     val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
@@ -69,8 +71,9 @@ lazy val library =
     val circeCore            = "io.circe"                     %% "circe-core"               % Version.circe
     val circeGeneric         = "io.circe"                     %% "circe-generic"            % Version.circe
     val circeParser          = "io.circe"                     %% "circe-parser"             % Version.circe
+    val javaxWsRs            = "javax.ws.rs"                  % "javax.ws.rs-api"           % Version.javaxWsRs
     val swagger              = "com.github.swagger-akka-http" %% "swagger-akka-http"        % Version.swagger
-    val swaggerJaxrs         = "io.swagger"                   % "swagger-jaxrs"             % Version.swaggerJaxrs
+    val swaggerScala         = "com.github.swagger-akka-http" %% "swagger-scala-module"     % Version.swaggerScala
     val typesafeConfig       = "com.typesafe"                 % "config"                    % Version.typesafeConfig
     val akkaLog4j            = "de.heikoseeberger"            %% "akka-log4j"               % Version.akkaLog4j
     val log4jCore            = "org.apache.logging.log4j"     % "log4j-core"                % Version.log4j
@@ -133,9 +136,11 @@ lazy val commonSettings =
 
 lazy val scalafmtSettings =
   Seq(
-    scalafmtOnCompile         := true,
-    scalafmtOnCompile.in(Sbt) := true,
-    scalafmtVersion           := "1.4.0"
+    scalafmtOnCompile         := true, 
+    scalafmtSbt            := true   
+ //,
+   // scalafmtOnCompile.in(Sbt) := true,
+   // scalafmtVersion           := "1.4.0"
   )
 
 lazy val buildInfoSettings = Seq(
