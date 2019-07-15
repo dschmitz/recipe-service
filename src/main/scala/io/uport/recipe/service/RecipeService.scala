@@ -63,3 +63,4 @@ object RecipeService extends App with AkkaConfig {
       actorSystem.terminate()
     }
 }
+// TODO CoordinatedShutdown instead of terminate
