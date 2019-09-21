@@ -7,10 +7,9 @@ addSbtPlugin("com.typesafe.sbt"  % "sbt-native-packager"    % "1.4.1")
 addSbtPlugin("de.heikoseeberger" % "sbt-header"             % "5.2.0")
 addSbtPlugin("io.gatling"        % "gatling-sbt"            % "3.0.0")
 addSbtPlugin("org.scalastyle"    %% "scalastyle-sbt-plugin" % "1.0.0")
-addSbtPlugin("org.scoverage"     % "sbt-scoverage"          % "1.5.1")
-addSbtPlugin("org.wartremover"   % "sbt-wartremover"        % "2.4.2")
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.0.0")
+addSbtPlugin("org.scoverage"     % "sbt-scoverage"          % "1.6.0")
+addSbtPlugin("org.wartremover"   % "sbt-wartremover"        % "2.4.3")
+addSbtPlugin("org.scalameta"     % "sbt-scalafmt"           % "2.0.5")
 
-//addSbtPlugin("com.lucidchart"    % "sbt-scalafmt"           % "1.15")
 //addSbtPlugin("com.typesafe.sbt"  % "sbt-site"               % "1.3.1")
 libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.26"
