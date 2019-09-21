@@ -136,11 +136,8 @@ lazy val commonSettings =
 
 lazy val scalafmtSettings =
   Seq(
-    scalafmtOnCompile         := true, 
-    scalafmtSbt            := true   
- //,
-   // scalafmtOnCompile.in(Sbt) := true,
-   // scalafmtVersion           := "1.4.0"
+    scalafmtOnCompile := true, 
+    scalafmtSbt       := true   
   )
 
 lazy val buildInfoSettings = Seq(
