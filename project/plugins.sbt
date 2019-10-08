@@ -12,4 +12,4 @@ addSbtPlugin("org.wartremover"   % "sbt-wartremover"        % "2.4.3")
 addSbtPlugin("org.scalameta"     % "sbt-scalafmt"           % "2.0.5")
 
 //addSbtPlugin("com.typesafe.sbt"  % "sbt-site"               % "1.3.1")
-libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.26"
+libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.28"
