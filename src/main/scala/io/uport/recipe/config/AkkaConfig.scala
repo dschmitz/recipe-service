@@ -24,8 +24,7 @@ import scala.concurrent.ExecutionContextExecutor
 
 trait AkkaConfig {
 
-  implicit val actorSystem: ActorSystem                   = ActorSystem("recipe-service")
-  implicit val materializer: ActorMaterializer            = ActorMaterializer()
+  implicit val actorSystem: ActorSystem = ActorSystem("recipe-service")
   implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
 
   // Scala 2.12
