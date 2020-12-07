@@ -53,17 +53,20 @@ object RecipeRepository {
   private val recipesById: Map[Int, Recipe]             = recipes.map(r => (r.id -> r)).toMap
   private val recipesByName: Map[(String, Int), Recipe] = recipes.map(r => ((r.name, r.id) -> r)).toMap
 
-  def getRecipe(id: Int): Future[Option[Recipe]] = Future {
-    require(id > 0, "Id must be greater than zero.")
-    recipesById.get(id)
-  }
+  def getRecipe(id: Int): Future[Option[Recipe]] =
+    Future {
+      require(id > 0, "Id must be greater than zero.")
+      recipesById.get(id)
+    }
 
-  def getRecipes(): Future[List[Recipe]] = Future {
-    recipes
-  }
+  def getRecipes(): Future[List[Recipe]] =
+    Future {
+      recipes
+    }
 
-  def getRecipeByName(name: String): Future[List[Recipe]] = Future {
-    require(name.nonEmpty, "The name must be present.")
-    recipesByName.filterKeys(key => key._1.equalsIgnoreCase(name)).values.toList
-  }
+  def getRecipeByName(name: String): Future[List[Recipe]] =
+    Future {
+      require(name.nonEmpty, "The name must be present.")
+      recipesByName.filterKeys(key => key._1.equalsIgnoreCase(name)).values.toList
+    }
 }

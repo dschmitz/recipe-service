@@ -45,19 +45,19 @@ lazy val library =
 
     object Version {
       val scala          = "2.12.11"
-      val akka           = "2.6.6"
-      val akkaHttp       = "10.1.12"
-      val akkaHttpCors   = "1.0.0"
-      val akkaHttpCirce  = "1.33.0"
+      val akka           = "2.6.10"
+      val akkaHttp       = "10.2.1"
+      val akkaHttpCors   = "1.1.0"
+      val akkaHttpCirce  = "1.35.2"
       val akkaLog4j      = "1.6.1"
       val circe          = "0.13.0"
-      val swagger        = "2.1.1"
-      val swaggerScala   = "2.1.0"
+      val swagger        = "2.3.0"
+      val swaggerScala   = "2.2.0"
       val javaxWsRs      = "2.0.1"
-      val log4j          = "2.13.3"
-      val scalaCheck     = "1.14.3"
-      val scalaTest      = "3.2.0"
-      val typesafeConfig = "1.4.0"
+      val log4j          = "2.14.0"
+      val scalaCheck     = "1.15.1"
+      val scalaTest      = "3.2.3"
+      val typesafeConfig = "1.4.1"
       val gatling        = "3.3.1"
     }
 
@@ -136,8 +136,7 @@ lazy val commonSettings =
 
 lazy val scalafmtSettings =
   Seq(
-    scalafmtOnCompile := true, 
-    scalafmtSbt       := true   
+    scalafmtOnCompile := true   
   )
 
 lazy val buildInfoSettings = Seq(

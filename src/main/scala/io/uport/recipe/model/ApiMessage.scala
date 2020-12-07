@@ -28,8 +28,8 @@ final case class ApiStatusMessage(message: String, buildInfo: String)
 object ApiStatusMessages {
 
   def currentStatus()(implicit actorSystem: ActorSystem): String =
-    (s"""|service: ${actorSystem.name}| uptime: ${(actorSystem.uptime.toFloat / 3600).formatted("%10.2f")} hours
-     """.stripMargin)
+    s"""|service: ${actorSystem.name}| uptime: ${(actorSystem.uptime.toFloat / 3600).formatted("%10.2f")} hours
+     """.stripMargin
 
   def buildInfo(): String = BuildInfo.toString
 
