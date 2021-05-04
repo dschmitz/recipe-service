@@ -20,7 +20,7 @@ lazy val `recipe-service` =
         library.circeGeneric,
         library.circeParser,
         library.typesafeConfig,
-        library.akkaLog4j,
+        library.akkaSlf4j,
         library.log4jCore,
         library.log4j,
         library.log4jSlf4jImpl,
@@ -44,27 +44,27 @@ lazy val library =
   new {
 
     object Version {
-      val scala          = "2.12.11"
-      val akka           = "2.6.10"
-      val akkaHttp       = "10.2.1"
-      val akkaHttpCors   = "1.1.0"
-      val akkaHttpCirce  = "1.35.2"
-      val akkaLog4j      = "1.6.1"
+      val scala          = "2.13.5"
+      val akka           = "2.6.14"
+      val akkaHttp       = "10.2.4"
+      val akkaHttpCors   = "1.1.1"
+      val akkaHttpCirce  = "1.36.0"
       val circe          = "0.13.0"
-      val swagger        = "2.3.0"
-      val swaggerScala   = "2.2.0"
-      val javaxWsRs      = "2.0.1"
-      val log4j          = "2.14.0"
-      val scalaCheck     = "1.15.1"
-      val scalaTest      = "3.2.3"
+      val swagger        = "2.4.2"
+      val swaggerScala   = "2.3.0"
+      val javaxWsRs      = "2.1.1"
+      val log4j          = "2.14.1"
+      val scalaCheck     = "1.15.4"
+      val scalaTest      = "3.2.8"
       val typesafeConfig = "1.4.1"
-      val gatling        = "3.3.1"
+      val gatling        = "3.5.1"
     }
 
     val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
     val akkaCluster          = "com.typesafe.akka"            %% "akka-cluster"             % Version.akka
     val akkaHttp             = "com.typesafe.akka"            %% "akka-http"                % Version.akkaHttp
     val akkaHttpCore         = "com.typesafe.akka"            %% "akka-http-core"           % Version.akkaHttp
+    val akkaSlf4j            = "com.typesafe.akka"            %% "akka-slf4j"               % Version.akka 
     val akkaHttpCors         = "ch.megard"                    %% "akka-http-cors"           % Version.akkaHttpCors
     val akkaHttpCirce        = "de.heikoseeberger"            %% "akka-http-circe"          % Version.akkaHttpCirce
     val akkaStreams          = "com.typesafe.akka"            %% "akka-stream"              % Version.akka
@@ -75,7 +75,6 @@ lazy val library =
     val swagger              = "com.github.swagger-akka-http" %% "swagger-akka-http"        % Version.swagger
     val swaggerScala         = "com.github.swagger-akka-http" %% "swagger-scala-module"     % Version.swaggerScala
     val typesafeConfig       = "com.typesafe"                 % "config"                    % Version.typesafeConfig
-    val akkaLog4j            = "de.heikoseeberger"            %% "akka-log4j"               % Version.akkaLog4j
     val log4jCore            = "org.apache.logging.log4j"     % "log4j-core"                % Version.log4j
     val log4jSlf4jImpl       = "org.apache.logging.log4j"     % "log4j-slf4j-impl"          % Version.log4j
     val log4j                = "org.apache.logging.log4j"     % "log4j-api"                 % Version.log4j
