@@ -2,6 +2,33 @@
 // Projects
 // *****************************************************************************
 
+inThisBuild(
+  Seq(
+    organization := "io.uport",
+    scalaVersion       := library.Version.scala,
+    crossScalaVersions := Seq(scalaVersion.value, library.Version.scala),
+    scalacOptions ++= Seq(
+      "-unchecked",
+      "-deprecation",
+      "-language:_",
+      "-target:jvm-1.8",
+      "-encoding",
+      "UTF-8",
+      "-feature",
+      "-Ywarn-dead-code",
+      "-Ywarn-numeric-widen",
+      "-Ywarn-value-discard",
+      "-Ywarn-unused"
+    ),
+    javacOptions ++= Seq(
+      "-source",
+      "1.8",
+      "-target",
+      "1.8"
+    )
+  )
+)
+
 lazy val `recipe-service` =
   project
     .in(file("."))
@@ -44,7 +71,7 @@ lazy val library =
   new {
 
     object Version {
-      val scala          = "2.13.5"
+      val scala          = "2.13.6"
       val akka           = "2.6.14"
       val akkaHttp       = "10.2.4"
       val akkaHttpCors   = "1.1.1"
@@ -53,6 +80,7 @@ lazy val library =
       val swagger        = "2.4.2"
       val swaggerScala   = "2.3.0"
       val javaxWsRs      = "2.1.1"
+      val disruptor      = "3.4.2"
       val log4j          = "2.14.1"
       val scalaCheck     = "1.15.4"
       val scalaTest      = "3.2.8"
@@ -75,6 +103,7 @@ lazy val library =
     val swagger              = "com.github.swagger-akka-http" %% "swagger-akka-http"        % Version.swagger
     val swaggerScala         = "com.github.swagger-akka-http" %% "swagger-scala-module"     % Version.swaggerScala
     val typesafeConfig       = "com.typesafe"                 % "config"                    % Version.typesafeConfig
+    val disruptor            = "com.lmax"                     % "disruptor"                 % Version.disruptor
     val log4jCore            = "org.apache.logging.log4j"     % "log4j-core"                % Version.log4j
     val log4jSlf4jImpl       = "org.apache.logging.log4j"     % "log4j-slf4j-impl"          % Version.log4j
     val log4j                = "org.apache.logging.log4j"     % "log4j-api"                 % Version.log4j
@@ -104,32 +133,10 @@ lazy val settings =
 
 lazy val commonSettings =
   Seq(
-    scalaVersion       := library.Version.scala,
-    crossScalaVersions := Seq(scalaVersion.value, library.Version.scala),
-    organization       := "io.uport",
     licenses += ("Apache 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
     mappings.in(Compile, packageBin) += baseDirectory.in(ThisBuild).value / "LICENSE" -> "LICENSE",
-    scalacOptions ++= Seq(
-      "-unchecked",
-      "-deprecation",
-      "-language:_",
-      "-target:jvm-1.8",
-      "-encoding",
-      "UTF-8",
-      "-feature",
-      "-Ywarn-dead-code",
-      "-Ywarn-numeric-widen",
-      "-Ywarn-value-discard",
-      "-Ywarn-unused"
-    ),
-    javacOptions ++= Seq(
-      "-source",
-      "1.8",
-      "-target",
-      "1.8"
-    ),
-    unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
-    unmanagedSourceDirectories.in(Test)    := Seq(scalaSource.in(Test).value)
+    Compile / unmanagedSourceDirectories := Seq(scalaSource.in(Compile).value),
+    Test / unmanagedSourceDirectories   := Seq(scalaSource.in(Test).value)
     //incOptions := incOptions.value.withNameHashing(true),
   )
 
@@ -157,26 +164,27 @@ lazy val headerSettings = Seq(
 
 lazy val dockerSettings = Seq(
   //daemonUser.in(Docker) := "nobody",
-  maintainer.in(Docker) := "David Schmitz",
+  Docker / maintainer   := "David Schmitz",
   dockerBaseImage       := "java:8",
   dockerExposedPorts    := Vector(8000),
   dockerRepository      := Some("uport")
 )
 
 lazy val wartRemoverSettings = Seq(
-  wartremoverWarnings in (Compile, compile) ++= Warts.unsafe
+  Compile / compile / wartremoverWarnings ++= Warts.unsafe
   //  wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.Any, Wart.StringPlusAny),
   //  wartremoverExcluded ++= (sourceManaged ** "*.scala").value.get
 )
 
 lazy val scoverageSettings = Seq(
-  coverageMinimum       := 60,
-  coverageFailOnMinimum := false
+  coverageMinimumStmtTotal         := 60,
+  coverageFailOnMinimum            := false,
+  Test / compile / coverageEnabled := true
 )
 
 lazy val publishSettings = Seq(
   publishMavenStyle       := true,
-  publishArtifact in Test := false,
+  Test / publishArtifact  := false,
   publishTo := {
     val nexus = "http://127.0.0.1:48081/"
     if (isSnapshot.value) {
