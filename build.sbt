@@ -71,21 +71,21 @@ lazy val library =
   new {
 
     object Version {
-      val scala          = "2.13.6"
-      val akka           = "2.6.14"
-      val akkaHttp       = "10.2.4"
-      val akkaHttpCors   = "1.1.1"
-      val akkaHttpCirce  = "1.36.0"
-      val circe          = "0.13.0"
-      val swagger        = "2.4.2"
-      val swaggerScala   = "2.3.0"
+      val scala          = "2.13.7"
+      val akka           = "2.6.17"
+      val akkaHttp       = "10.2.7"
+      val akkaHttpCors   = "1.1.2"
+      val akkaHttpCirce  = "1.38.2"
+      val circe          = "0.14.1"
+      val swagger        = "2.6.0"
+      val swaggerScala   = "2.5.2"
       val javaxWsRs      = "2.1.1"
       val disruptor      = "3.4.2"
-      val log4j          = "2.14.1"
+      val log4j          = "2.17.0"
       val scalaCheck     = "1.15.4"
-      val scalaTest      = "3.2.8"
+      val scalaTest      = "3.2.10"
       val typesafeConfig = "1.4.1"
-      val gatling        = "3.5.1"
+      val gatling        = "3.7.2"
     }
 
     val akkaActor            = "com.typesafe.akka"            %% "akka-actor"               % Version.akka
@@ -179,7 +179,7 @@ lazy val wartRemoverSettings = Seq(
 lazy val scoverageSettings = Seq(
   coverageMinimumStmtTotal         := 60,
   coverageFailOnMinimum            := false,
-  Test / compile / coverageEnabled := true
+  coverageEnabled := true
 )
 
 lazy val publishSettings = Seq(
